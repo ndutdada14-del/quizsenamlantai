@@ -7,113 +7,14 @@
 </head>
 <body>
 
-<div class="container">
+<div class="quiz-box">
   <h1>📝 Quiz Senam Lantai</h1>
-  <div id="question"></div>
+  <h2 id="question">Pertanyaan</h2>
   <div id="answers"></div>
   <button id="next">Next</button>
-  <div id="score"></div>
+  <h3 id="score"></h3>
 </div>
 
-<script>
-const questions = [
-  {
-    question: "Apa yang dimaksud dengan senam lantai?",
-    answers: [
-      { text: "Olahraga menggunakan bola", correct: false },
-      { text: "Olahraga yang dilakukan di air", correct: false },
-      { text: "Olahraga yang dilakukan di atas matras dengan gerakan tubuh", correct: true },
-      { text: "Olahraga lari di lapangan", correct: false }
-    ]
-  },
-  {
-    question: "Berikut ini yang termasuk tujuan senam lantai adalah…",
-    answers: [
-      { text: "Menambah berat badan", correct: false },
-      { text: "Melatih kekuatan dan kelenturan", correct: true },
-      { text: "Mengurangi tinggi badan", correct: false },
-      { text: "Membuat cepat lelah", correct: false }
-    ]
-  },
-  {
-    question: "Gerakan menggulingkan badan ke depan disebut…",
-    answers: [
-      { text: "Kayang", correct: false },
-      { text: "Sikap lilin", correct: false },
-      { text: "Guling depan", correct: true },
-      { text: "Handstand", correct: false }
-    ]
-  },
-  {
-    question: "Alat utama yang digunakan dalam senam lantai adalah…",
-    answers: [
-      { text: "Bola", correct: false },
-      { text: "Matras", correct: true },
-      { text: "Raket", correct: false },
-      { text: "Net", correct: false }
-    ]
-  },
-  {
-    question: "Mengapa pemanasan penting sebelum senam lantai?",
-    answers: [
-      { text: "Agar cepat selesai", correct: false },
-      { text: "Agar tidak cedera", correct: true },
-      { text: "Agar terlihat keren", correct: false },
-      { text: "Agar cepat lelah", correct: false }
-    ]
-  }
-];
-
-let index = 0;
-let score = 0;
-
-const q = document.getElementById("question");
-const a = document.getElementById("answers");
-const next = document.getElementById("next");
-const s = document.getElementById("score");
-
-function showQuestion() {
-  a.innerHTML = "";
-  let current = questions[index];
-  q.innerText = current.question;
-
-  current.answers.forEach(ans => {
-    let btn = document.createElement("button");
-    btn.innerText = ans.text;
-    btn.onclick = () => checkAnswer(btn, ans.correct);
-    a.appendChild(btn);
-  });
-
-  next.style.display = "none";
-}
-
-function checkAnswer(btn, correct) {
-  if (correct) {
-    btn.style.background = "green";
-    score++;
-  } else {
-    btn.style.background = "red";
-  }
-
-  Array.from(a.children).forEach(b => b.disabled = true);
-  next.style.display = "block";
-}
-
-next.onclick = () => {
-  index++;
-  if (index < questions.length) {
-    showQuestion();
-  } else {
-    q.innerText = "Quiz selesai!";
-    a.innerHTML = "";
-    s.innerText = "Skor kamu: " + score + " / " + questions.length;
-    next.innerText = "Ulangi";
-    next.onclick = () => location.reload();
-  }
-};
-
-showQuestion();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
