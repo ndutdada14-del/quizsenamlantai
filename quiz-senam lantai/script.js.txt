@@ -1,0 +1,108 @@
+const questions = [
+  {
+    question: "Apa yang dimaksud dengan senam lantai?",
+    answers: [
+      { text: "Olahraga menggunakan alat berat", correct: false },
+      { text: "Olahraga di air", correct: false },
+      { text: "Olahraga di atas lantai dengan matras", correct: true },
+      { text: "Olahraga berlari", correct: false }
+    ]
+  },
+  {
+    question: "Tujuan senam lantai adalah?",
+    answers: [
+      { text: "Menambah berat badan", correct: false },
+      { text: "Melatih kekuatan dan kelenturan", correct: true },
+      { text: "Mengurangi stamina", correct: false },
+      { text: "Membuat tubuh lemah", correct: false }
+    ]
+  },
+  {
+    question: "Gerakan menggulingkan badan ke depan disebut?",
+    answers: [
+      { text: "Kayang", correct: false },
+      { text: "Guling depan", correct: true },
+      { text: "Handstand", correct: false },
+      { text: "Sikap lilin", correct: false }
+    ]
+  },
+  {
+    question: "Alat utama senam lantai adalah?",
+    answers: [
+      { text: "Bola", correct: false },
+      { text: "Matras", correct: true },
+      { text: "Raket", correct: false },
+      { text: "Tali", correct: false }
+    ]
+  },
+  {
+    question: "Prinsip keselamatan senam lantai adalah?",
+    answers: [
+      { text: "Tidak pemanasan", correct: false },
+      { text: "Gerakan sembarangan", correct: false },
+      { text: "Menggunakan matras", correct: true },
+      { text: "Tanpa pengawasan", correct: false }
+    ]
+  }
+];
+
+let index = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+const nextBtn = document.getElementById("next");
+const scoreEl = document.getElementById("score");
+
+function showQuestion() {
+  answersEl.innerHTML = "";
+  let q = questions[index];
+  questionEl.innerText = q.question;
+
+  q.answers.forEach(a => {
+    let btn = document.createElement("button");
+    btn.innerText = a.text;
+    btn.onclick = () => selectAnswer(btn, a.correct);
+    answersEl.appendChild(btn);
+  });
+
+  nextBtn.style.display = "none";
+}
+
+function selectAnswer(btn, correct) {
+  if (correct) {
+    btn.classList.add("correct");
+    score++;
+  } else {
+    btn.classList.add("wrong");
+  }
+
+  Array.from(answersEl.children).forEach(b => b.disabled = true);
+  nextBtn.style.display = "block";
+}
+
+nextBtn.onclick = () => {
+  index++;
+  if (index < questions.length) {
+    showQuestion();
+  } else {
+    showScore();
+  }
+};
+
+function showScore() {
+  questionEl.innerText = "Quiz selesai!";
+  answersEl.innerHTML = "";
+  scoreEl.innerText = "Skor: " + score + " / " + questions.length;
+  nextBtn.innerText = "Ulangi";
+  nextBtn.style.display = "block";
+  nextBtn.onclick = () => {
+    index = 0;
+    score = 0;
+    scoreEl.innerText = "";
+    nextBtn.innerText = "Next";
+    showQuestion();
+  };
+}
+
+showQuestion();
